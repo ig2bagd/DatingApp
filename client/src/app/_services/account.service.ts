@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { User } from '../_models/user';
 import { ReplaySubject } from 'rxjs';
 
@@ -15,9 +15,9 @@ export class AccountService {
   constructor(private http: HttpClient) { }
 
   login(model: any) {
-    // https://www.udemy.com/course/build-an-app-with-aspnet-core-and-angular-from-scratch/learn/lecture/22400668#questions/13350648
     return this.http.post(this.baseUrl + 'account/login', model).pipe(
-      map((user: User) => {
+      map((response: User) => {
+        const user = response;
         if (user) {
           localStorage.setItem('user', JSON.stringify(user));
           this.currentUserSource.next(user);
